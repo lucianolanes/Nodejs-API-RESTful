@@ -1,5 +1,5 @@
-const { CREATED } = require('../helpers/httpStatusCodes');
-const { createUser } = require('../services/userServices');
+const { CREATED, OK } = require('../helpers/httpStatusCodes');
+const { createUser, validateAndLogin } = require('../services/userServices');
 
 async function createNewUser(req, res) {
   const { name, email, password } = req.body;
@@ -12,6 +12,18 @@ async function createNewUser(req, res) {
   return res.status(CREATED).json(verifyAndCreate);
 }
 
+async function login(req, res) {
+  const { email, password } = req.body;
+  const validateLogin = await validateAndLogin(email, password);
+
+  if (validateLogin.code) {
+    return res.status(validateLogin.code).json({ message: validateLogin.message });
+  }
+
+  return res.status(OK).json(validateLogin);
+}
+
 module.exports = {
   createNewUser,
+  login,
 };

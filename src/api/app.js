@@ -1,5 +1,5 @@
 const express = require('express');
-const { createNewUser } = require('../controllers/userControllers');
+const { createNewUser, login } = require('../controllers/userControllers');
 
 const app = express();
 
@@ -10,5 +10,7 @@ app.get('/', (request, response) => {
 });
 
 app.post('/users', createNewUser);
+
+app.post('/login', login);
 
 module.exports = app;

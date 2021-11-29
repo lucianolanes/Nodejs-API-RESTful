@@ -10,6 +10,8 @@ const BAD_REQUEST = 400;
 
 const CONFLICT = 409;
 
+const UNAUTHORIZED = 401;
+
 module.exports = {
   CREATED,
   UNPROCESSABLE_ENTITY,
@@ -17,4 +19,5 @@ module.exports = {
   NOT_FOUND,
   BAD_REQUEST,
   CONFLICT,
+  UNAUTHORIZED,
 };

@@ -1,5 +1,6 @@
-const { createNewUser, getEmail } = require('../models/usersModels');
-const { BAD_REQUEST, CONFLICT } = require('../helpers/httpStatusCodes');
+const { createNewUser, getEmail, getEmailAndPassword } = require('../models/usersModels');
+const { BAD_REQUEST, CONFLICT, UNAUTHORIZED } = require('../helpers/httpStatusCodes');
+const generateJWT = require('./generateJWT');
 
 function validateUserData(newUserData) {
   const { name, email, password } = newUserData;
@@ -34,6 +35,19 @@ async function createUser(newUserData) {
   return { user: { name, email, role, _id } };
 }
 
+async function validateAndLogin(email, password) {
+  if (!email || !password) {
+    return { message: 'All fields must be filled', code: UNAUTHORIZED };
+  }
+
+  const exists = await getEmailAndPassword(email, password);
+  if (!exists) return { message: 'Incorrect username or password', code: UNAUTHORIZED };
+
+  const { _id, role } = exists;
+  return generateJWT(_id, email, role);
+}
+
 module.exports = {
   createUser,
+  validateAndLogin,
 };

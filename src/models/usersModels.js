@@ -14,7 +14,13 @@ async function getEmail(email) {
     .then((db) => db.collection(USERS).findOne({ email }));
 }
 
+async function getEmailAndPassword(email, password) {
+  return connection()
+    .then((db) => db.collection(USERS).findOne({ email, password }));
+}
+
 module.exports = {
   createNewUser,
   getEmail,
+  getEmailAndPassword,
 };
