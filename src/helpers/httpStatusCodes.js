@@ -1,0 +1,20 @@
+const CREATED = 201;
+
+const UNPROCESSABLE_ENTITY = 422;
+
+const OK = 200;
+
+const NOT_FOUND = 404;
+
+const BAD_REQUEST = 400;
+
+const CONFLICT = 409;
+
+module.exports = {
+  CREATED,
+  UNPROCESSABLE_ENTITY,
+  OK,
+  NOT_FOUND,
+  BAD_REQUEST,
+  CONFLICT,
+};
