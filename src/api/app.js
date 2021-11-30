@@ -1,5 +1,6 @@
 const express = require('express');
-const { createNewUser, login } = require('../controllers/userControllers');
+const { createNewUser, login } = require('../controllers/usersControllers');
+const recipesRouter = require('../routers/recipesRouters');
 
 const app = express();
 
@@ -12,5 +13,7 @@ app.get('/', (request, response) => {
 app.post('/users', createNewUser);
 
 app.post('/login', login);
+
+app.use('/recipes', recipesRouter);
 
 module.exports = app;

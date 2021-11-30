@@ -1,5 +1,5 @@
 const { CREATED, OK } = require('../helpers/httpStatusCodes');
-const { createUser, validateAndLogin } = require('../services/userServices');
+const { createUser, validateAndLogin } = require('../services/usersServices');
 
 async function createNewUser(req, res) {
   const { name, email, password } = req.body;
