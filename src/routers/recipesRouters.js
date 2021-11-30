@@ -1,10 +1,12 @@
 const express = require('express');
 const validateJWS = require('../middlewares/validateJWS');
-const { postNewRecipe, getAllRecipes } = require('../controllers/recipesControllers');
+const { postNewRecipe, getAllRecipes, getRecipe } = require('../controllers/recipesControllers');
 
 const router = express.Router();
 
 router.get('/', getAllRecipes);
+
+router.get('/:id', getRecipe);
 
 router.use('/', validateJWS);
 

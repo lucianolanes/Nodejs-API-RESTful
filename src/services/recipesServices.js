@@ -1,5 +1,6 @@
-const { createNewRecipe, getAllRecipes } = require('../models/recipesModels');
-const { BAD_REQUEST } = require('../helpers/httpStatusCodes');
+const { ObjectId } = require('mongodb');
+const { createNewRecipe, getAllRecipes, getRecipe } = require('../models/recipesModels');
+const { BAD_REQUEST, NOT_FOUND } = require('../helpers/httpStatusCodes');
 
 function validateRecipeData(recipeData) {
   const { name, ingredients, preparation } = recipeData;
@@ -23,7 +24,17 @@ async function getRecipes() {
  return getAllRecipes();
 }
 
+async function getRecipeById(id) {
+  if (!ObjectId.isValid(id)) return { message: 'recipe not found', code: NOT_FOUND };
+
+  const result = await getRecipe(ObjectId(id));
+  if (!result) return { message: 'recipe not found', code: NOT_FOUND };
+  
+  return result;
+ }
+
 module.exports = {
   createRecipe,
   getRecipes,
+  getRecipeById,
 };

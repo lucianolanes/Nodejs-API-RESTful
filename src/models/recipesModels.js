@@ -14,7 +14,13 @@ async function getAllRecipes() {
     .then((db) => db.collection(RECIPES).find().toArray());
 }
 
+async function getRecipe(id) {
+  return connection()
+    .then((db) => db.collection(RECIPES).findOne({ _id: id }));
+}
+
 module.exports = {
   createNewRecipe,
   getAllRecipes,
+  getRecipe,
 };
