@@ -4,6 +4,7 @@ const {
   getRecipes,
   getRecipeById,
   validateAndEdit,
+  validateAndDelete,
 } = require('../services/recipesServices');
 
 async function postNewRecipe(req, res) {
@@ -34,11 +35,21 @@ async function editRecipe(req, res) {
   const { id } = req.params;
   const { name, ingredients, preparation } = req.body;
   const { email } = req.user;
-  const recipe = await validateAndEdit(id, email, { name, ingredients, preparation });
+  const result = await validateAndEdit(id, email, { name, ingredients, preparation });
 
-  if (recipe.code) return res.status(recipe.code).json({ message: recipe.message });
+  if (result.code) return res.status(result.code).json({ message: result.message });
 
-  return res.status(OK).json(recipe);
+  return res.status(OK).json(result);
+}
+
+async function deleteRecipe(req, res) {
+  const { id } = req.params;
+  const { email } = req.user;
+  const result = await validateAndDelete(id, email);
+
+  if (result.code) return res.status(result.code).json({ message: result.message });
+
+  return res.status(204).end();
 }
 
 module.exports = {
@@ -46,4 +57,5 @@ module.exports = {
   getAllRecipes,
   getRecipe,
   editRecipe,
+  deleteRecipe,
 };

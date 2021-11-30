@@ -25,9 +25,15 @@ async function editRecipe(id, name, ingredients, preparation) {
       .updateOne({ _id: id }, { $set: { name, ingredients, preparation } }));
 }
 
+async function deleteRecipe(id) {
+  return connection()
+    .then((db) => db.collection(RECIPES).deleteOne({ _id: id }));
+}
+
 module.exports = {
   createNewRecipe,
   getAllRecipes,
   getRecipe,
   editRecipe,
+  deleteRecipe,
 };
