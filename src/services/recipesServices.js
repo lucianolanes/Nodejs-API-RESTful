@@ -1,4 +1,4 @@
-const { createNewRecipe } = require('../models/recipesModels');
+const { createNewRecipe, getAllRecipes } = require('../models/recipesModels');
 const { BAD_REQUEST } = require('../helpers/httpStatusCodes');
 
 function validateRecipeData(recipeData) {
@@ -19,6 +19,11 @@ async function createRecipe(recipeData, userId) {
   return { recipe: { ...created[0], userId } };
 }
 
+async function getRecipes() {
+ return getAllRecipes();
+}
+
 module.exports = {
   createRecipe,
+  getRecipes,
 };

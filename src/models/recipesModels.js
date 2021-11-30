@@ -9,6 +9,12 @@ async function createNewRecipe(recipeData) {
     .then((result) => result.ops);
 }
 
+async function getAllRecipes() {
+  return connection()
+    .then((db) => db.collection(RECIPES).find().toArray());
+}
+
 module.exports = {
   createNewRecipe,
+  getAllRecipes,
 };

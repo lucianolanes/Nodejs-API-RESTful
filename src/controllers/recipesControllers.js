@@ -1,5 +1,5 @@
-const { CREATED } = require('../helpers/httpStatusCodes');
-const { createRecipe } = require('../services/recipesServices');
+const { CREATED, OK } = require('../helpers/httpStatusCodes');
+const { createRecipe, getRecipes } = require('../services/recipesServices');
 
 async function postNewRecipe(req, res) {
   const { id: userId } = req.user;
@@ -11,6 +11,12 @@ async function postNewRecipe(req, res) {
   return res.status(CREATED).json(post);
 }
 
+async function getAllRecipes(req, res) {
+  const recipes = await getRecipes();
+  return res.status(OK).json(recipes);
+}
+
 module.exports = {
   postNewRecipe,
+  getAllRecipes,
 };
