@@ -16,7 +16,6 @@ module.exports = async (req, res, next) => {
   
     return next();
   } catch (err) {
-
     return res.status(UNAUTHORIZED).json({ message: 'jwt malformed' });
   }
 };
