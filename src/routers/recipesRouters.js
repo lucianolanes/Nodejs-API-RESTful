@@ -1,6 +1,11 @@
 const express = require('express');
-const validateJWS = require('../middlewares/validateJWS');
-const { postNewRecipe, getAllRecipes, getRecipe } = require('../controllers/recipesControllers');
+const validateJWT = require('../middlewares/validateJWT');
+const {
+  postNewRecipe,
+  getAllRecipes,
+  getRecipe,
+  editRecipe,
+} = require('../controllers/recipesControllers');
 
 const router = express.Router();
 
@@ -8,8 +13,8 @@ router.get('/', getAllRecipes);
 
 router.get('/:id', getRecipe);
 
-router.use('/', validateJWS);
+router.post('/', validateJWT, postNewRecipe);
 
-router.post('/', postNewRecipe);
+router.put('/:id', validateJWT, editRecipe);
 
 module.exports = router;

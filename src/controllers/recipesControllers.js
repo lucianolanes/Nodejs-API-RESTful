@@ -1,5 +1,10 @@
 const { CREATED, OK } = require('../helpers/httpStatusCodes');
-const { createRecipe, getRecipes, getRecipeById } = require('../services/recipesServices');
+const {
+  createRecipe,
+  getRecipes,
+  getRecipeById,
+  validateAndEdit,
+} = require('../services/recipesServices');
 
 async function postNewRecipe(req, res) {
   const { id: userId } = req.user;
@@ -25,8 +30,20 @@ async function getRecipe(req, res) {
   return res.status(OK).json(recipe);
 }
 
+async function editRecipe(req, res) {
+  const { id } = req.params;
+  const { name, ingredients, preparation } = req.body;
+  const { email } = req.user;
+  const recipe = await validateAndEdit(id, email, { name, ingredients, preparation });
+
+  if (recipe.code) return res.status(recipe.code).json({ message: recipe.message });
+
+  return res.status(OK).json(recipe);
+}
+
 module.exports = {
   postNewRecipe,
   getAllRecipes,
   getRecipe,
+  editRecipe,
 };
