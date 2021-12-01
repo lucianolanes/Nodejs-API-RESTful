@@ -30,10 +30,17 @@ async function deleteRecipe(id) {
     .then((db) => db.collection(RECIPES).deleteOne({ _id: id }));
 }
 
+async function uploadImage(id) {
+  return connection()
+    .then((db) => db.collection(RECIPES)
+      .updateOne({ _id: id }, { $set: { image: `localhost:3000/src/uploads/${id}.jpeg` } }));
+}
+
 module.exports = {
   createNewRecipe,
   getAllRecipes,
   getRecipe,
   editRecipe,
   deleteRecipe,
+  uploadImage,
 };

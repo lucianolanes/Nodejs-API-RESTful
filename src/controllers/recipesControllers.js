@@ -1,10 +1,12 @@
 const { CREATED, OK } = require('../helpers/httpStatusCodes');
+
 const {
   createRecipe,
   getRecipes,
   getRecipeById,
   validateAndEdit,
   validateAndDelete,
+  upload,
 } = require('../services/recipesServices');
 
 async function postNewRecipe(req, res) {
@@ -52,10 +54,17 @@ async function deleteRecipe(req, res) {
   return res.status(204).end();
 }
 
+async function putImage(req, res) {
+  const { id } = req.params;
+  const result = await upload(id);
+  return res.status(200).json(result);
+}
+
 module.exports = {
   postNewRecipe,
   getAllRecipes,
   getRecipe,
   editRecipe,
   deleteRecipe,
+  putImage,
 };
