@@ -1,16 +1,18 @@
-const CREATED = 201;
-
-const UNPROCESSABLE_ENTITY = 422;
-
 const OK = 200;
 
-const NOT_FOUND = 404;
+const CREATED = 201;
 
 const BAD_REQUEST = 400;
 
+const UNAUTHORIZED = 401;
+
+const FORBIDDEN = 403;
+
+const NOT_FOUND = 404;
+
 const CONFLICT = 409;
 
-const UNAUTHORIZED = 401;
+const UNPROCESSABLE_ENTITY = 422;
 
 module.exports = {
   CREATED,
@@ -20,4 +22,5 @@ module.exports = {
   BAD_REQUEST,
   CONFLICT,
   UNAUTHORIZED,
+  FORBIDDEN,
 };

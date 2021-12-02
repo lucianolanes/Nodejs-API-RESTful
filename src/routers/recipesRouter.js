@@ -1,5 +1,4 @@
 const express = require('express');
-// const path = require('path');
 
 const validateJWT = require('../middlewares/validateJWT');
 const validateUploadPermission = require('../middlewares/validateUploadPermission');
@@ -27,8 +26,6 @@ router.post('/', postNewRecipe);
 router.put('/:id', editRecipe);
 
 router.delete('/:id', deleteRecipe);
-
-// router.use(express.static(path.resolve(__dirname, 'uploads')));
 
 router.put('/:id/image', validateUploadPermission, uploadFile.single('image'), putImage);
 

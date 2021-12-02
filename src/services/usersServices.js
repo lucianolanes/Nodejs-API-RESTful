@@ -23,14 +23,14 @@ async function checkEmail(email) {
   return {};
 }
 
-async function createUser(newUserData) {
+async function createUser(newUserData, newRole) {
   const validateData = validateUserData(newUserData);
   if (validateData.message) return validateData;
   
   const verifyEmail = await checkEmail(newUserData.email);
   if (verifyEmail.message) return verifyEmail;
 
-  const created = await createNewUser({ ...newUserData, role: 'user' });
+  const created = await createNewUser({ ...newUserData, newRole });
   const { name, email, role, _id } = created[0];
   return { user: { name, email, role, _id } };
 }
