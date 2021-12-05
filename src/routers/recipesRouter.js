@@ -1,7 +1,7 @@
 const express = require('express');
 
 const validateJWT = require('../middlewares/validateJWT');
-const validateUploadPermission = require('../middlewares/validateUploadPermission');
+const validateUserPermission = require('../middlewares/validateUserPermission');
 const uploadFile = require('../middlewares/uploadFile');
 
 const {
@@ -23,10 +23,12 @@ router.use('/', validateJWT);
 
 router.post('/', postNewRecipe);
 
+router.use('/:id', validateUserPermission);
+
 router.put('/:id', editRecipe);
 
 router.delete('/:id', deleteRecipe);
 
-router.put('/:id/image', validateUploadPermission, uploadFile.single('image'), putImage);
+router.put('/:id/image', uploadFile.single('image'), putImage);
 
 module.exports = router;

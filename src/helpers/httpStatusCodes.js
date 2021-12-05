@@ -14,6 +14,8 @@ const CONFLICT = 409;
 
 const UNPROCESSABLE_ENTITY = 422;
 
+const INTERNAL_ERROR = 500;
+
 module.exports = {
   CREATED,
   UNPROCESSABLE_ENTITY,
@@ -23,4 +25,5 @@ module.exports = {
   CONFLICT,
   UNAUTHORIZED,
   FORBIDDEN,
+  INTERNAL_ERROR,
 };

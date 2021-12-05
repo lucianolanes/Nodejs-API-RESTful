@@ -9,55 +9,72 @@ const {
   upload,
 } = require('../services/recipesServices');
 
-async function postNewRecipe(req, res) {
-  const { id: userId } = req.user;
-  const { name, ingredients, preparation } = req.body;
-  const post = await createRecipe({ name, ingredients, preparation }, userId);
+async function postNewRecipe(req, res, next) {
+  try {
+    const { id: userId } = req.user;
+    const { name, ingredients, preparation } = req.body;
+    const post = await createRecipe({ name, ingredients, preparation }, userId);
 
-  if (post.code) return res.status(post.code).json({ message: post.message });
-
-  return res.status(CREATED).json(post);
+    return res.status(CREATED).json(post);
+  } catch (err) {
+    next(err);
+  }
+}
+async function getAllRecipes(req, res, next) {
+  try {
+    const recipes = await getRecipes();
+    
+    return res.status(OK).json(recipes);
+  } catch (err) {
+    next(err);
+  }
 }
 
-async function getAllRecipes(req, res) {
-  const recipes = await getRecipes();
-  return res.status(OK).json(recipes);
+async function getRecipe(req, res, next) {
+  try {
+    const { id } = req.params;
+    const recipe = await getRecipeById(id);
+
+    return res.status(OK).json(recipe);
+  } catch (err) {
+    next(err);
+  }
 }
 
-async function getRecipe(req, res) {
-  const { id } = req.params;
-  const recipe = await getRecipeById(id);
+async function editRecipe(req, res, next) {
+  try {
+    const { id } = req.params;
+    const { name, ingredients, preparation } = req.body;
+    const { email } = req.user;
+    const result = await validateAndEdit(id, email, { name, ingredients, preparation });
 
-  if (recipe.code) return res.status(recipe.code).json({ message: recipe.message });
-
-  return res.status(OK).json(recipe);
+    return res.status(OK).json(result);
+  } catch (err) {
+    next(err);
+  }
 }
 
-async function editRecipe(req, res) {
-  const { id } = req.params;
-  const { name, ingredients, preparation } = req.body;
-  const { email } = req.user;
-  const result = await validateAndEdit(id, email, { name, ingredients, preparation });
+async function deleteRecipe(req, res, next) {
+  try {
+    const { id } = req.params;
+    const { email } = req.user;
+    await validateAndDelete(id, email);
 
-  if (result.code) return res.status(result.code).json({ message: result.message });
-
-  return res.status(OK).json(result);
+    return res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
 }
 
-async function deleteRecipe(req, res) {
-  const { id } = req.params;
-  const { email } = req.user;
-  const result = await validateAndDelete(id, email);
-
-  if (result.code) return res.status(result.code).json({ message: result.message });
-
-  return res.status(204).end();
-}
-
-async function putImage(req, res) {
+async function putImage(req, res, next) {
+  try {
   const { id } = req.params;
   const result = await upload(id);
+  
   return res.status(200).json(result);
+  } catch (err) {
+    next(err);
+  }
 }
 
 module.exports = {

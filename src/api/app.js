@@ -3,6 +3,7 @@ const path = require('path');
 const { login } = require('../controllers/usersControllers');
 const recipesRouter = require('../routers/recipesRouter');
 const usersRouter = require('../routers/usersRouter');
+const errorMiddleware = require('../middlewares/errorMiddleware');
 
 const app = express();
 
@@ -19,5 +20,7 @@ app.post('/login', login);
 app.use('/users', usersRouter);
 
 app.use('/recipes', recipesRouter);
+
+app.use(errorMiddleware);
 
 module.exports = app;
