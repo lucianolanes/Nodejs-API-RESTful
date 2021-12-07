@@ -1,4 +1,4 @@
-### Node.js API RESTFul Cookmaster
+### Node.js API RESTful Cookmaster
 
 API desenvolvida utilizando padrão REST onde é possível fazer o cadastro e login de pessoas usuárias, bem como cadastro e requisição de receitas e upload de suas imagens.
 
