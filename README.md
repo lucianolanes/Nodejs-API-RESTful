@@ -12,7 +12,7 @@ Ferramentas utilizadas:
 - Multer;
 - Mocha e Sinon para os testes;
 
-Todas as camadas da aplicação (Models, Services, Controllers, Routers e Middlewares) que foi construída com base na arquetura MSC, estão localizados na pasta `src`, na raiz da aplicação, bem como os testes de integração;
+Todas as camadas da aplicação (Models, Services, Controllers, Routers e Middlewares) que foi construída com base na arquitetura MSC estão localizadas nas suas respectivas pastas dentro da pasta `src`, na raiz da aplicação, juntamente com os testes de integração;
 
 Através dessa aplicação é possível realizar as operações básicas que se pode fazer em um determinado banco de dados: Criação, Leitura, Atualização e Exclusão de receitas e imagens utilizando MongoDB como banco de dados NoSQL.
 
