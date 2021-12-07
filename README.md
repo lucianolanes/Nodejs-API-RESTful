@@ -30,12 +30,12 @@ Para realizar qualquer tipo de alteração no banco de dados (como cadastro, edi
 
 `GET /recipes/:id` - retorna a receita específica que contém o id passado como parâmetro, se existir;
 
-`POST /recipes/:id` - cadastra uma nova receita;
+`POST /recipes` - cadastra uma nova receita;
 
 `PUT /recipes/:id` - edita a receita específica, sendo permitida apenas pelo usuário que a cadastrou ou administradores;
 
 `DELETE /recipes/:id` - exclui a receita específica, sendo permitido apenas pelo usuário que a cadastrou ou administradores;
 
-`PUT /recipes/:id` - faz o upload de uma imagem enviada na requisição para receita específica, sendo permitido apenas pelo usuário que a cadastrou ou administradores;
+`PUT /recipes/:id/image` - faz o upload de uma imagem enviada na requisição para receita específica, sendo permitido apenas pelo usuário que a cadastrou ou administradores;
 
-`GET /images/<nomeDaImagem.extensão>` - retorna a imagem passada como parâmetro na requisição, se existir;
+`GET /images/<id-da-receita.extensão>` - retorna a imagem passada como parâmetro na requisição, se existir;
