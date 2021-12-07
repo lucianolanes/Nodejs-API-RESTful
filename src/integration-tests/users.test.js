@@ -11,10 +11,11 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
+const DBServer = new MongoMemoryServer();
+
 describe('POST /users', () => {
   describe('quando usuário é criado com sucesso', () => {
     let response = {};
-    const DBServer = new MongoMemoryServer();
 
     before(async () => {
       const URLMock = await DBServer.getUri();
@@ -74,7 +75,6 @@ describe('POST /users', () => {
 
   describe('quando falta o campo "name" na requisição', () => {
     let response = {};
-    const DBServer = new MongoMemoryServer();
 
     before(async () => {
       const URLMock = await DBServer.getUri();
@@ -94,8 +94,8 @@ describe('POST /users', () => {
     });
 
     after(async () => {
-        MongoClient.connect.restore();
-        await DBServer.stop();
+      MongoClient.connect.restore();
+      await DBServer.stop();
     });
 
     it('retorna o código de status 400', () => {
@@ -110,7 +110,6 @@ describe('POST /users', () => {
 
   describe('quando falta o campo "password" na requisição', () => {
     let response = {};
-    const DBServer = new MongoMemoryServer();
 
     before(async () => {
       const URLMock = await DBServer.getUri();
@@ -130,8 +129,8 @@ describe('POST /users', () => {
     });
 
     after(async () => {
-        MongoClient.connect.restore();
-        await DBServer.stop();
+      MongoClient.connect.restore();
+      await DBServer.stop();
     });
 
     it('retorna o código de status 400', () => {
@@ -146,7 +145,6 @@ describe('POST /users', () => {
 
   describe('quando falta o campo "email" na requisição', () => {
     let response = {};
-    const DBServer = new MongoMemoryServer();
 
     before(async () => {
       const URLMock = await DBServer.getUri();
@@ -166,8 +164,8 @@ describe('POST /users', () => {
     });
 
     after(async () => {
-        MongoClient.connect.restore();
-        await DBServer.stop();
+      MongoClient.connect.restore();
+      await DBServer.stop();
     });
 
     it('retorna o código de status 400', () => {
