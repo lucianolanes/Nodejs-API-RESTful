@@ -71,4 +71,112 @@ describe('POST /users', () => {
       expect(ObjectId.isValid(_id)).to.be.true;
     });
   });
+
+  describe('quando falta o campo "name" na requisição', () => {
+    let response = {};
+    const DBServer = new MongoMemoryServer();
+
+    before(async () => {
+      const URLMock = await DBServer.getUri();
+      const connectionMock = await MongoClient.connect(URLMock,
+          { useNewUrlParser: true, useUnifiedTopology: true }
+      );
+
+      sinon.stub(MongoClient, 'connect')
+        .resolves(connectionMock);
+
+      response = await chai.request(server)
+        .post('/users')
+        .send({
+            email: 'greywolf@gmail.com',
+            password: 'defeatTheAbyss38'
+        });
+    });
+
+    after(async () => {
+        MongoClient.connect.restore();
+        await DBServer.stop();
+    });
+
+    it('retorna o código de status 400', () => {
+      expect(response).to.have.status(400);
+    });
+
+    it('retorna a mensagem correta', () => {
+      expect(response).to.have.property('text');
+      expect(response.text).to.be.equal('{"message":"Invalid entries. Try again."}');
+    });
+  });
+
+  describe('quando falta o campo "password" na requisição', () => {
+    let response = {};
+    const DBServer = new MongoMemoryServer();
+
+    before(async () => {
+      const URLMock = await DBServer.getUri();
+      const connectionMock = await MongoClient.connect(URLMock,
+          { useNewUrlParser: true, useUnifiedTopology: true }
+      );
+
+      sinon.stub(MongoClient, 'connect')
+        .resolves(connectionMock);
+
+      response = await chai.request(server)
+        .post('/users')
+        .send({
+            name: 'Sif The Wolf',
+            email: 'greywolf@gmail.com'
+        });
+    });
+
+    after(async () => {
+        MongoClient.connect.restore();
+        await DBServer.stop();
+    });
+
+    it('retorna o código de status 400', () => {
+      expect(response).to.have.status(400);
+    });
+
+    it('retorna a mensagem correta', () => {
+      expect(response).to.have.property('text');
+      expect(response.text).to.be.equal('{"message":"Invalid entries. Try again."}');
+    });
+  });
+
+  describe('quando falta o campo "email" na requisição', () => {
+    let response = {};
+    const DBServer = new MongoMemoryServer();
+
+    before(async () => {
+      const URLMock = await DBServer.getUri();
+      const connectionMock = await MongoClient.connect(URLMock,
+          { useNewUrlParser: true, useUnifiedTopology: true }
+      );
+
+      sinon.stub(MongoClient, 'connect')
+        .resolves(connectionMock);
+
+      response = await chai.request(server)
+        .post('/users')
+        .send({
+            name: 'Sif The Wolf',
+            password: 'defeatTheAbyss38'
+        });
+    });
+
+    after(async () => {
+        MongoClient.connect.restore();
+        await DBServer.stop();
+    });
+
+    it('retorna o código de status 400', () => {
+      expect(response).to.have.status(400);
+    });
+
+    it('retorna a mensagem correta', () => {
+      expect(response).to.have.property('text');
+      expect(response.text).to.be.equal('{"message":"Invalid entries. Try again."}');
+    });
+  });
 });
