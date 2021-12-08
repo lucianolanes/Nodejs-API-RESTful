@@ -16,7 +16,7 @@ Todas as camadas da aplicação (Models, Services, Controllers, Routers e Middle
 
 Através dela é possível realizar as operações básicas que se pode fazer em um determinado banco de dados: Criação, Leitura, Atualização e Exclusão de receitas e imagens utilizando MongoDB como banco de dados NoSQL.
 
-Para realizar qualquer tipo de alteração no banco de dados (como cadastro, edição ou exclusão de receitas) é necessário o usuário cadastar-se ou autenticar-se, onde será emitido `JSON Web Token` (JWT). Além disso, as pessoas usuárias devem poder ser clientes ou administradores. Pessoas clientes apenas poderão disparar ações nas receitas que ele mesmo criou. Já uma pessoa administradora pode disparar qualquer ação em qualquer receita.
+Para realizar qualquer tipo de alteração no banco de dados (como cadastro, edição ou exclusão de receitas) é necessário o usuário cadastrar-se ou autenticar-se, onde será emitido um `JSON Web Token` (JWT). Além disso, as pessoas usuárias devem poder ser clientes ou administradores. Pessoas clientes apenas poderão disparar ações nas receitas que elas mesmas criaram. Já uma pessoa administradora pode disparar qualquer ação em qualquer receita.
 
 ### Endpoints
 
